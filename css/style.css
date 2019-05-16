@@ -78,17 +78,22 @@ header .category-area .category {
 .posts {
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .posts .post {
+  display: block;
   width: 44%;
-  margin: 1rem auto 0;
+  margin: 1rem 1% 0;
   padding: 1rem;
   background: #fff;
   border-radius: 10px;
+  opacity: 1;
+  transition: opacity 300ms ease 500ms;
 }
 
 .posts .post a {
+  display: block;
   text-decoration: none;
 }
 
@@ -96,27 +101,27 @@ header .category-area .category {
   color: #797979;
 }
 
-.posts .post a .post-data {
+.posts .post .post-data {
   display: flex;
   justify-content: space-between;
 }
 
-.posts .post a .post-data .update {
+.posts .post .post-data .update {
   font-size: 0.8rem;
 }
 
-.posts .post a .post-data .category {
+.posts .post .post-data .category {
   color: #8f81d8;
   font-weight: bold;
 }
 
-.posts .post a h2 {
+.posts .post h2 {
   font-size: 2rem;
   color: #b68ac7;
   font-weight: normal;
 }
 
-.posts .post a h2::before {
+.posts .post h2::before {
   content: '';
   display: inline-block;
   width: 2.2rem;
@@ -127,19 +132,126 @@ header .category-area .category {
   margin-right: 4px;
 }
 
-.posts .post a .tags {
+.posts .post .tags {
   display: flex;
   padding: 0 !important;
   color: #797979 !important;
 }
 
-.posts .post a .tags .taglink {
+.posts .post .tags .taglink {
   margin-right: 4px;
 }
 
-.posts .post a .tags .taglink::before {
+.posts .post .tags .taglink::before {
   content: "\0023";
   font-size: 1.2rem;
   font-weight: bold;
   color: #aa6dc3;
+}
+
+.posts .post .tags .taglink a {
+  display: inline-block;
+}
+
+.posts .post .contents {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.posts .post-detail.post {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 94%;
+  height: auto;
+  min-height: 50vh;
+  margin: 1rem 1% 0;
+  padding: 1rem;
+  opacity: 0;
+  z-index: -100;
+}
+
+.posts .post-detail.post .back {
+  display: none;
+}
+
+.posts .post-detail.post h2::before {
+  display: none;
+}
+
+.posts .post-detail.post.show-detail .back {
+  display: block !important;
+  font-size: 1.5rem;
+}
+
+.posts .post-detail.post.show-detail .back .back-first {
+  color: #b68ac7;
+  font-size: 1.8rem;
+}
+
+.posts .post-detail.post.show-detail h2::before {
+  content: '';
+  display: inline-block !important;
+  width: 2.2rem;
+  height: 2.2rem;
+  background-image: url(../img/icon.jpeg);
+  background-size: contain;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.hide-overray {
+  display: none;
+}
+
+.show-overray {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  z-index: 50;
+}
+
+.fadeout {
+  opacity: 0 !important;
+  -moz-animation: fadeout 200ms ease 0ms;
+  -webkit-animation: fadeout 200ms ease 0ms;
+  -o-animation: fadeout 200ms ease 0ms;
+  -ms-animation: fadeout 200ms ease 0ms;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.show-detail {
+  opacity: 1 !important;
+  z-index: 100 !important;
+  transition: opacity 300ms ease;
 }
