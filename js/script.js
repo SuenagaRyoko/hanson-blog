@@ -2,74 +2,73 @@ var data = [
   {
     title: '記事タイトル1',
     create_date: '2019-05-09',
-    category: 'カテゴリー1',
-    tag: [
-      { tag0: 'タグ1' },
-      { tag1: 'タグ2' },
-      { tag2: 'タグ3' }
-    ],
+    category: {'category0':'カテゴリー1'},
+    tag: {
+      tag0: 'タグ1',
+      tag1: 'タグ2',
+      tag2: 'タグ3'
+    },
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
     title: '記事タイトル2',
     create_date: '2019-05-09',
-    category: 'カテゴリー1',
-    tag: [
-      { tag0: 'タグ1' },
-      { tag1: 'タグ2' },
-      { tag2: 'タグ3' }
-    ],
+    category: {'category1':'カテゴリー2'},
+    tag: {
+      tag0: 'タグ1',
+      tag1: 'タグ2',
+      tag2: 'タグ3'
+    },
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
     title: '記事タイトル3',
     create_date: '2019-05-09',
-    category: 'カテゴリー1',
-    tag: [
-      { tag0: 'タグ1' },
-      { tag1: 'タグ2' },
-      { tag2: 'タグ3' }
-    ],
+    category: {'category2':'カテゴリー3'},
+    tag: {
+      tag0: 'タグ1',
+      tag1: 'タグ2',
+      tag3: 'タグ4'
+    },
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\n'
   },
   {
     title: '記事タイトル4',
     create_date: '2019-05-09',
-    category: 'カテゴリー1',
-    tag: [
-      { tag0: 'タグ1' },
-      { tag1: 'タグ2' },
-      { tag2: 'タグ3' }
-    ],
+    category: {'category0':'カテゴリー1'},
+    tag: {
+      tag0: 'タグ1',
+      tag2: 'タグ3',
+      tag4: 'タグ5'
+    },
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
     title: '記事タイトル5',
     create_date: '2019-05-09',
-    category: 'カテゴリー1',
-    tag: [
-      { tag0: 'タグ1' },
-      { tag1: 'タグ2' },
-      { tag2: 'タグ3' }
-    ],
+    category: {'category1':'カテゴリー2'},
+    tag: {
+      tag0: 'タグ1',
+      tag1: 'タグ2',
+      tag4: 'タグ5'
+    },
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
     title: '記事タイトル6',
     create_date: '2019-05-09',
-    category: 'カテゴリー1',
-    tag: [
-      { tag0: 'タグ1' },
-      { tag1: 'タグ2' },
-      { tag2: 'タグ3' }
-    ],
+    category: {'category2':'カテゴリー3'},
+    tag: {
+      tag0: 'タグ1',
+      tag1: 'タグ2',
+      tag4: 'タグ5'
+    },
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   }
 ];
 
 window.addEventListener('DOMContentLoaded',function () {
-  var filter = [];
-  create_node(filter);
+  create_node(data);
 
   window.addEventListener('hashchange',function () {
 
@@ -92,13 +91,13 @@ window.addEventListener('DOMContentLoaded',function () {
       detail_category.appendChild(document.createTextNode(data[index].category));
       detail_contents.appendChild(document.createTextNode(data[index].contents));
 
-      for (var tag_i = 0; tag_i < data[index].tag.length; tag_i++) {
+      for (tag_i in data[index].tag) {
         var taglink = document.createElement('li'),
         taglink_a = document.createElement('a');
 
         taglink.setAttribute('class','taglink');
 
-        taglink_a.appendChild(document.createTextNode(data[index].tag[tag_i]['tag' + tag_i]));
+        taglink_a.appendChild(document.createTextNode(data[index]["tag"][tag_i]));
         taglink.appendChild(taglink_a);
         detail_fragment.appendChild(taglink);
       }
@@ -113,7 +112,6 @@ window.addEventListener('DOMContentLoaded',function () {
       overray.classList.remove('hide-overay');
       overray.classList.add('show-overray');
 
-      
     }else if(hash == '#top') {
 
       show_post.classList.remove('show-detail');
@@ -132,14 +130,21 @@ window.addEventListener('DOMContentLoaded',function () {
 
       return;
 
-    }else if(hash.indexOf('#category') > 0) {
-      var index = hash.replace('#category','');
-      
-      for (var i = 0; i < data.length; i++) {
-        
-        
-      }
+    }else if(hash.indexOf('cat') > 0) {
+      var postList = document.querySelector("#js-posts"),
+      cats = hash.split('_'),
+      list = articleFilter(cats[1],"category");
+      deleteNode(postList);
+      create_node(list);
+    }else if(hash.indexOf('tag') > 0) {
+      var postList = document.querySelector("#js-posts"),
+      tags = hash.split('_'),
+      list = articleFilter(tags[1],"tag");
+      deleteNode(postList);
+      create_node(list);
     }
+
+
   });
 
 });
@@ -149,7 +154,7 @@ function create_node(filter) {
   var fragment = document.createDocumentFragment(),
   posts = document.getElementById('js-posts');
 
-  for (var i = 0; i < data.length; i++) {
+  for (var i = 0; i < filter.length; i++) {
     var post = document.createElement('article'),
     a = document.createElement('a'),
     post_data = document.createElement('div'),
@@ -166,16 +171,22 @@ function create_node(filter) {
     category.setAttribute('class','category');
     tags.setAttribute('class','tags');
 
-    create_data.appendChild(document.createTextNode(data[i].create_date));
-    category.appendChild(document.createTextNode(data[i].category));
-    h2.appendChild(document.createTextNode(data[i].title));
+    var catname = "";
+    for(cat in filter[i].category){
+      catname = filter[i].category[cat];
+      break;
+    }
 
-    for (var tag_i = 0; tag_i < data[i].tag.length; tag_i++) {
+    create_data.appendChild(document.createTextNode(filter[i].create_date));
+    category.appendChild(document.createTextNode(catname));
+    h2.appendChild(document.createTextNode(filter[i].title));
+
+    for (tag_i in filter[i].tag) {
       var taglink = document.createElement('li'),
       taglink_a = document.createElement('a');
 
       taglink.setAttribute('class','taglink');
-      taglink_a.appendChild(document.createTextNode(data[i].tag[tag_i]['tag' + tag_i]));
+      taglink_a.appendChild(document.createTextNode(filter[i]["tag"][tag_i]));
       taglink.appendChild(taglink_a);
       tags.appendChild(taglink);
     }
@@ -192,7 +203,7 @@ function create_node(filter) {
     fragment.appendChild(post);
 
   }
-  
+
   posts.appendChild(fragment);
 
 }
@@ -203,4 +214,14 @@ function deleteNode(ele){
       ele.removeChild(ele.lastChild);
     }
   }
+}
+
+function articleFilter(param,content){
+  var result = [];
+  for(var i = 0;i<data.length;i++){
+    if(param in data[i][content]){
+      result.push(data[i]);
+    }
+  }
+  return result;
 }
