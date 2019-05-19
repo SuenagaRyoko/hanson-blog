@@ -330,10 +330,11 @@ header{
 
 .fadeout {
   opacity: 0 !important;
-  -moz-animation: fadeout 300ms ease 0ms;
-  -webkit-animation: fadeout 300ms ease 0ms;
-  -o-animation: fadeout 300ms ease 0ms;
-  -ms-animation: fadeout 300ms ease 0ms;
+  animation: fadeout fadeout 300ms ease 0ms;
+  // -moz-animation: fadeout 300ms ease 0ms;
+  // -webkit-animation: fadeout 300ms ease 0ms;
+  // -o-animation: fadeout 300ms ease 0ms;
+  // -ms-animation: fadeout 300ms ease 0ms;
 }
 @keyframes fadeout {
   0% {
