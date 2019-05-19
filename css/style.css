@@ -19,8 +19,16 @@ header {
 }
 
 header h1 {
-  text-align: center;
   font-size: 2.2rem;
+  text-align: center;
+}
+
+header h1 a {
+  text-decoration: none;
+}
+
+header h1 a:link, header h1 a:hover, header h1 a:visited, header h1 a:active {
+  color: #fff;
 }
 
 header h1::first-letter {
@@ -46,14 +54,22 @@ header .category-area .category {
   }
 }
 
+header .category-area .category a {
+  text-decoration: none;
+}
+
+header .category-area .category a:link, header .category-area .category a:hover, header .category-area .category a:visited, header .category-area .category a:active {
+  color: #fff;
+}
+
 #wrap {
+  width: 96%;
   max-width: 1280px;
   margin: auto;
-  padding: 1rem;
 }
 
 #wrap .tags {
-  padding: 0 1rem;
+  margin: 1rem 0;
   color: #fff;
 }
 
@@ -117,20 +133,21 @@ header .category-area .category {
 
 .posts {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   justify-content: space-between;
   position: relative;
+  opacity: 1;
+  transition: opacity 300ms ease 0ms;
 }
 
 .posts .post {
   display: block;
-  width: 43.2%;
-  margin: 1rem 1% 0;
-  padding: 1rem;
+  width: 45%;
+  margin: 0 0 1rem;
+  padding: 1rem 2% 0;
   background: #fff;
   border-radius: 10px;
-  opacity: 1;
-  transition: opacity 300ms ease 500ms;
 }
 
 @media screen and (max-width: 768px) {
@@ -157,9 +174,13 @@ header .category-area .category {
   font-size: 0.8rem;
 }
 
-.posts .post .post-data .category {
-  color: #8f81d8;
+.posts .post .post-data .category a {
   font-weight: bold;
+  text-decoration: none;
+}
+
+.posts .post .post-data .category a:link, .posts .post .post-data .category a:hover, .posts .post .post-data .category a:visited, .posts .post .post-data .category a:active {
+  color: #8f81d8;
 }
 
 .posts .post h2 {
@@ -224,11 +245,12 @@ header .category-area .category {
 
 .post-detail {
   position: absolute;
-  width: calc( 100vw - 6rem);
+  width: 90%;
+  max-width: 1280px;
   height: auto;
   min-height: 60vh;
-  margin: 1rem 1rem 2rem;
-  padding: 1rem;
+  margin: 0 0 2rem;
+  padding: 1rem 3%;
   background: #fff;
   border-radius: 10px;
   opacity: 0;
@@ -267,9 +289,13 @@ header .category-area .category {
   font-size: 0.8rem;
 }
 
-.post-detail.show-detail .post-data .category {
-  color: #8f81d8;
+.post-detail.show-detail .post-data .category a {
   font-weight: bold;
+  text-decoration: none;
+}
+
+.post-detail.show-detail .post-data .category a:link, .post-detail.show-detail .post-data .category a:hover, .post-detail.show-detail .post-data .category a:visited, .post-detail.show-detail .post-data .category a:active {
+  color: #8f81d8;
 }
 
 .post-detail.show-detail h2 {
@@ -317,10 +343,7 @@ header .category-area .category {
   text-decoration: none;
 }
 
-.post-detail.show-detail .tags .taglink a a:link,
-.post-detail.show-detail .tags .taglink a a:hover,
-.post-detail.show-detail .tags .taglink a a:visited,
-.post-detail.show-detail .tags .taglink a a:active {
+.post-detail.show-detail .tags .taglink a:link, .post-detail.show-detail .tags .taglink a:hover, .post-detail.show-detail .tags .taglink a:visited, .post-detail.show-detail .tags .taglink a:active {
   color: #797979 !important;
 }
 
@@ -346,10 +369,10 @@ header .category-area .category {
 
 .fadeout {
   opacity: 0 !important;
-  -moz-animation: fadeout 200ms ease 0ms;
-  -webkit-animation: fadeout 200ms ease 0ms;
-  -o-animation: fadeout 200ms ease 0ms;
-  -ms-animation: fadeout 200ms ease 0ms;
+  -moz-animation: fadeout 300ms ease 0ms;
+  -webkit-animation: fadeout 300ms ease 0ms;
+  -o-animation: fadeout 300ms ease 0ms;
+  -ms-animation: fadeout 300ms ease 0ms;
 }
 
 @keyframes fadeout {
@@ -382,5 +405,5 @@ header .category-area .category {
 .show-detail {
   opacity: 1 !important;
   z-index: 100 !important;
-  transition: opacity 300ms ease;
+  transition: opacity 300ms ease 0ms;
 }

@@ -1,3 +1,4 @@
+// 記事表示用のデータ
 var data = [
   {
     title: '記事タイトル1',
@@ -67,81 +68,110 @@ var data = [
   }
 ];
 
+// DOM(htmlの要素)が読み込まれたら処理を実行
 window.addEventListener('DOMContentLoaded',function () {
+  // urlにハッシュが含まれていない場合#topをつける
+  if (!location.hash) {
+    location.href = '#top';
+  }
+
+  // 記事一覧を表示
   create_node(data);
+  article_set_click();
 
   window.addEventListener('hashchange',function () {
 
     var hash = location.hash,
-    show_post = document.getElementById('js-post-detail'),
-    hide_posts = document.querySelectorAll('.post:not(#js-post-detail)'),
-    overray = document.getElementById('js-overray');
-
-    var detail_fragment = document.createDocumentFragment(),
-    detail_create_data = document.querySelector('#js-create-data'),
-    detail_category = document.querySelector('#js-category'),
-    detail_title = document.querySelector('#js-title'),
-    detail_tags = document.querySelector('#js-tags'),
-    detail_contents = document.querySelector('#js-contents');
+    detail_fragment = document.createDocumentFragment(),
+    append_detail = {
+      create_date: document.querySelector('#js-create-data'),
+      category: document.querySelector('#js-category'),
+      title: document.querySelector('#js-title'),
+      tags: document.querySelector('#js-tags'),
+      contents: document.querySelector('#js-contents')
+    };
 
     if (hash.indexOf("data") > 0 ) {
+
       var index = hash.replace('#data','');
-      detail_title.appendChild(document.createTextNode(data[index].title));
-      detail_create_data.appendChild(document.createTextNode(data[index].create_date));
-      detail_category.appendChild(document.createTextNode(data[index].category));
-      detail_contents.appendChild(document.createTextNode(data[index].contents));
 
-      for (tag_i in data[index].tag) {
-        var taglink = document.createElement('li'),
-        taglink_a = document.createElement('a');
+      for (var node in append_detail) {
 
-        taglink.setAttribute('class','taglink');
+        if (node == "category") {
+          var category_a = document.createElement('a');
 
-        taglink_a.appendChild(document.createTextNode(data[index]["tag"][tag_i]));
-        taglink.appendChild(taglink_a);
-        detail_fragment.appendChild(taglink);
+          for (var cat in data[index][node]) {
+            category_a.setAttribute('href', '#cat_' + cat);
+
+            category_a.appendChild(document.createTextNode(data[index].category[cat]));
+            append_detail[node].appendChild(category_a);
+          }
+          continue;
+
+        }else if (node == "tags") {
+
+          for (var tag_i in data[index].tag) {
+            var taglink = document.createElement('li'),
+            taglink_a = document.createElement('a');
+    
+            taglink.setAttribute('class','taglink');
+            taglink_a.setAttribute('href','#tag_' + tag_i);
+    
+            taglink_a.appendChild(document.createTextNode(data[index]["tag"][tag_i]));
+            taglink.appendChild(taglink_a);
+            detail_fragment.appendChild(taglink);
+          }
+          append_detail[node].appendChild(detail_fragment);
+          continue;
+
+        }
+        append_detail[node].appendChild(document.createTextNode(data[index][node]));
+        
+      }
+      
+      detail_fadein();
+
+    }else if(hash.indexOf('cat') > 0) {
+
+      var postList = document.querySelector("#js-posts"),
+      cats = hash.split('_'),
+      list = article_filter(cats[1],"category");
+
+      delete_node(postList);
+      create_node(list);
+      article_set_click();
+
+      detail_fadeout();
+
+      for (var node in append_detail) {
+        delete_node(append_detail[node]);
       }
 
-      detail_tags.appendChild(detail_fragment);
+    }else if(hash.indexOf('tag') > 0) {
 
-      for (var i = 0; i < hide_posts.length; i++) {
-          hide_posts[i].classList.add('fadeout');
-      };
+      var postList = document.querySelector("#js-posts"),
+      tags = hash.split('_'),
+      list = article_filter(tags[1],"tag");
 
-      show_post.classList.add('show-detail');
-      overray.classList.remove('hide-overay');
-      overray.classList.add('show-overray');
+      delete_node(postList);
+      create_node(list);
+      article_set_click();
+
+      detail_fadeout();
+
+      for (var node in append_detail) {
+        delete_node(append_detail[node]);
+      }
 
     }else if(hash == '#top') {
 
-      show_post.classList.remove('show-detail');
-      overray.classList.add('hide-overay');
-      overray.classList.remove('show-overray');
 
-      for (var i = 0; i < hide_posts.length; i++) {
-        hide_posts[i].classList.remove('fadeout');
-      };
+      detail_fadeout();
 
-      detail_create_data.removeChild(detail_create_data.lastChild);
-      detail_category.removeChild(detail_category.lastChild);
-      detail_contents.removeChild(detail_contents.lastChild);
-      deleteNode(detail_title);
-      deleteNode(detail_tags);
+      for (var node in append_detail) {
+        delete_node(append_detail[node]);
+      }
 
-      return;
-
-    }else if(hash.indexOf('cat') > 0) {
-      var postList = document.querySelector("#js-posts"),
-      cats = hash.split('_'),
-      list = articleFilter(cats[1],"category");
-      deleteNode(postList);
-      create_node(list);
-    }else if(hash.indexOf('tag') > 0) {
-      var postList = document.querySelector("#js-posts"),
-      tags = hash.split('_'),
-      list = articleFilter(tags[1],"tag");
-      deleteNode(postList);
-      create_node(list);
     }
 
 
@@ -149,6 +179,7 @@ window.addEventListener('DOMContentLoaded',function () {
 
 });
 
+// 要素の生成
 function create_node(filter) {
 
   var fragment = document.createDocumentFragment(),
@@ -161,36 +192,36 @@ function create_node(filter) {
     h2 = document.createElement('h2'),
     create_data = document.createElement('div'),
     category = document.createElement('div'),
+    category_a = document.createElement('a');
     tags = document.createElement('ul');
 
     post.setAttribute('id','post' + i);
     post.setAttribute('class','post');
     post_data.setAttribute('class','post-data');
-    a.setAttribute('href','#data' + i);
     create_data.setAttribute('class','create-data');
     category.setAttribute('class','category');
     tags.setAttribute('class','tags');
 
-    var catname = "";
-    for(cat in filter[i].category){
-      catname = filter[i].category[cat];
-      break;
-    }
-
     create_data.appendChild(document.createTextNode(filter[i].create_date));
-    category.appendChild(document.createTextNode(catname));
     h2.appendChild(document.createTextNode(filter[i].title));
 
-    for (tag_i in filter[i].tag) {
+    for (var cat in filter[i].category) {
+      category_a.setAttribute('href','#cat_' + cat);
+      category_a.appendChild(document.createTextNode(filter[i].category[cat]));
+      category.appendChild(category_a);
+    }
+
+    for (var tag_i in filter[i].tag) {
       var taglink = document.createElement('li'),
       taglink_a = document.createElement('a');
 
       taglink.setAttribute('class','taglink');
+      taglink_a.setAttribute('href','#tag_' + tag_i);
+      
       taglink_a.appendChild(document.createTextNode(filter[i]["tag"][tag_i]));
       taglink.appendChild(taglink_a);
       tags.appendChild(taglink);
     }
-
 
     post_data.appendChild(create_data);
     post_data.appendChild(category);
@@ -208,7 +239,8 @@ function create_node(filter) {
 
 }
 
-function deleteNode(ele){
+// 要素の削除
+function delete_node(ele){
   if (ele.hasChildNodes()){
     while (ele.childNodes.length > 0){
       ele.removeChild(ele.lastChild);
@@ -216,12 +248,65 @@ function deleteNode(ele){
   }
 }
 
-function articleFilter(param,content){
+function article_set_click() {
+  // 記事がクリックされた時に、
+  var post_ele = document.querySelectorAll('.post'),
+  post_id;
+
+  for (var post_i = 0; post_i < post_ele.length; post_i++) {
+    post_ele[post_i].addEventListener('click',function () {
+      post_id = this.getAttribute('id');
+      post_id = post_id.replace('post','');
+      location.hash = '#data' + post_id;
+      scroll_top();
+    });
+  }
+}
+
+// 詳細ページのフェードインアニメーション
+function detail_fadein() {
+  var hide_posts = document.getElementById('js-posts'),
+  show_post = document.getElementById('js-post-detail');
+
+  hide_posts.classList.add('fadeout');
+  show_post.classList.add('show-detail');
+
+}
+
+// 詳細ページのフェードアウトアニメーション
+function detail_fadeout() {
+  var hide_posts = document.getElementById('js-posts'),
+  show_post = document.getElementById('js-post-detail');
+
+  hide_posts.classList.remove('fadeout');
+  show_post.classList.remove('show-detail');
+
+}
+
+// カテゴリやタグごとにフィルタリング
+function article_filter(param,content){
   var result = [];
-  for(var i = 0;i<data.length;i++){
-    if(param in data[i][content]){
+  for (var i = 0;i<data.length;i++) {
+    if(param in data[i][content]) {
       result.push(data[i]);
     }
   }
   return result;
+}
+
+// ページトップへスクロール
+function scroll_top() {
+  var currentY = window.pageYOffset;
+  var duration = 200;
+  var step = duration / currentY > 1 ? 10 : 100;
+  var timeStep = duration / currentY * step;
+  var intervalID = setInterval(scrollUp, timeStep);
+  function scrollUp(){
+    currentY = window.pageYOffset;
+    if(currentY === 0) {
+    clearInterval(intervalID);
+    } else {
+    scrollBy( 0, -step );
+    }
+  }
 }

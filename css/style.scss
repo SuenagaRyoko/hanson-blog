@@ -18,8 +18,17 @@ header{
   color: #fff;
   border-bottom: solid 5px #b68ac7;
   h1{
-    text-align: center;
     font-size: 2.2rem;
+    text-align: center;
+    a{
+      text-decoration: none;
+      &:link,
+      &:hover,
+      &:visited,
+      &:active{
+        color: #fff;
+      }
+    }
     &::first-letter{
       color: #b68ac7;
       font-size: 2.8rem;
@@ -36,16 +45,25 @@ header{
       @media screen and (max-width: 768px){
         font-size: 1rem;
       }
+      a{
+        text-decoration: none;
+        &:link,
+        &:hover,
+        &:visited,
+        &:active{
+          color: #fff;
+        }
+      }
     }
   }
 }
 
 #wrap{
+  width: 96%;
   max-width: 1280px;
   margin: auto;
-  padding: 1rem;
   .tags{
-    padding: 0 1rem;
+    margin: 1rem 0;
     color: #fff;
     h2{
       font-size: 1.8rem;
@@ -94,18 +112,19 @@ header{
 
 .posts{
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   justify-content: space-between;
   position: relative;
+  opacity: 1;
+  transition: opacity 300ms ease 0ms;
   .post{
     display: block;
-    width: 43.2%;
-    margin: 1rem 1% 0;
-    padding: 1rem;
+    width: 45%;
+    margin: 0 0 1rem;
+    padding: 1rem 2% 0;
     background: #fff;
     border-radius: 10px;
-    opacity: 1;
-    transition: opacity 300ms ease 500ms;
     @media screen and (max-width: 768px){
       width: 100%;
     }
@@ -126,8 +145,16 @@ header{
         font-size: 0.8rem;
       }
       .category{
-        color: #8f81d8;
-        font-weight: bold;
+        a{
+          font-weight: bold;
+          text-decoration: none;
+          &:link,
+          &:hover,
+          &:visited,
+          &:active{
+            color: #8f81d8;
+          }
+            }
       }
     }
     h2{
@@ -184,11 +211,12 @@ header{
 
 .post-detail{
   position: absolute;
-  width: calc( 100vw - 6rem );
+  width: 90%;
+  max-width: 1280px;
   height: auto;
   min-height: 60vh;
-  margin: 1rem 1rem 2rem;
-  padding: 1rem;
+  margin: 0 0 2rem;
+  padding: 1rem 3%;
   background: #fff;
   border-radius: 10px;
   opacity: 0;
@@ -226,8 +254,16 @@ header{
       font-size: 0.8rem;
     }
     .category{
-      color: #8f81d8;
-      font-weight: bold;
+      a{
+        font-weight: bold;
+        text-decoration: none;
+        &:link,
+        &:hover,
+        &:visited,
+        &:active{
+          color: #8f81d8;
+        }
+      }
     }
   }
   h2{
@@ -263,10 +299,10 @@ header{
       a{
         display: inline-block;
         text-decoration: none;
-        a:link,
-        a:hover,
-        a:visited,
-        a:active{
+        &:link,
+        &:hover,
+        &:visited,
+        &:active{
           color: #797979 !important;
         }
       }
@@ -294,10 +330,10 @@ header{
 
 .fadeout {
   opacity: 0 !important;
-  -moz-animation: fadeout 200ms ease 0ms;
-  -webkit-animation: fadeout 200ms ease 0ms;
-  -o-animation: fadeout 200ms ease 0ms;
-  -ms-animation: fadeout 200ms ease 0ms;
+  -moz-animation: fadeout 300ms ease 0ms;
+  -webkit-animation: fadeout 300ms ease 0ms;
+  -o-animation: fadeout 300ms ease 0ms;
+  -ms-animation: fadeout 300ms ease 0ms;
 }
 @keyframes fadeout {
   0% {
@@ -327,5 +363,5 @@ header{
 .show-detail{
   opacity: 1 !important;
   z-index: 100 !important;
-  transition: opacity 300ms ease;
+  transition: opacity 300ms ease 0ms;
 }
