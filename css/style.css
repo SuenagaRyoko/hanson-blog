@@ -31,13 +31,19 @@ header h1::first-letter {
 header .category-area {
   display: flex;
   justify-content: center;
-  font-size: 1.2rem;
 }
 
 header .category-area .category {
   margin: auto;
   padding-bottom: 2px;
+  font-size: 1.2rem;
   border-bottom: solid 2px;
+}
+
+@media screen and (max-width: 768px) {
+  header .category-area .category {
+    font-size: 1rem;
+  }
 }
 
 #wrap {
@@ -55,17 +61,36 @@ header .category-area .category {
   font-size: 1.8rem;
 }
 
+@media screen and (max-width: 768px) {
+  #wrap .tags h2 {
+    font-size: 1.2rem;
+  }
+}
+
 #wrap .tags h2::first-letter {
   font-size: 2rem;
 }
 
+@media screen and (max-width: 768px) {
+  #wrap .tags h2::first-letter {
+    font-size: 1.5rem;
+  }
+}
+
 #wrap .tags .taglink-area {
   display: flex;
+  flex-wrap: wrap;
 }
 
 #wrap .tags .taglink-area .taglink {
   margin-right: 10px;
   font-size: 1.2rem;
+}
+
+@media screen and (max-width: 768px) {
+  #wrap .tags .taglink-area .taglink {
+    font-size: 1rem;
+  }
 }
 
 #wrap .tags .taglink-area .taglink::before {
@@ -75,21 +100,43 @@ header .category-area .category {
   color: #aa6dc3;
 }
 
+@media screen and (max-width: 768px) {
+  #wrap .tags .taglink-area .taglink::before {
+    font-size: 1.2rem;
+  }
+}
+
+#wrap .tags .taglink-area .taglink a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+#wrap .tags .taglink-area .taglink a:link, #wrap .tags .taglink-area .taglink a:hover, #wrap .tags .taglink-area .taglink a:visited, #wrap .tags .taglink-area .taglink a:active {
+  color: #fff;
+}
+
 .posts {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   position: relative;
 }
 
 .posts .post {
   display: block;
-  width: 44%;
+  width: 43.2%;
   margin: 1rem 1% 0;
   padding: 1rem;
   background: #fff;
   border-radius: 10px;
   opacity: 1;
   transition: opacity 300ms ease 500ms;
+}
+
+@media screen and (max-width: 768px) {
+  .posts .post {
+    width: 100%;
+  }
 }
 
 .posts .post a {
@@ -119,6 +166,15 @@ header .category-area .category {
   font-size: 2rem;
   color: #b68ac7;
   font-weight: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 768px) {
+  .posts .post h2 {
+    font-size: 1.8rem;
+  }
 }
 
 .posts .post h2::before {
@@ -151,6 +207,14 @@ header .category-area .category {
 
 .posts .post .tags .taglink a {
   display: inline-block;
+  text-decoration: none;
+}
+
+.posts .post .tags .taglink a a:link,
+.posts .post .tags .taglink a a:hover,
+.posts .post .tags .taglink a a:visited,
+.posts .post .tags .taglink a a:active {
+  color: #797979 !important;
 }
 
 .posts .post .contents {
@@ -158,38 +222,69 @@ header .category-area .category {
   margin: 1rem 0;
 }
 
-.posts .post-detail.post {
+.post-detail {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 94%;
+  width: calc( 100vw - 6rem);
   height: auto;
   min-height: 60vh;
-  margin: 1rem 1% 0;
+  margin: 1rem 1rem 2rem;
   padding: 1rem;
+  background: #fff;
+  border-radius: 10px;
   opacity: 0;
   z-index: -100;
 }
 
-.posts .post-detail.post .back {
+.post-detail .back {
   display: none;
 }
 
-.posts .post-detail.post h2::before {
+.post-detail h2::before {
   display: none;
 }
 
-.posts .post-detail.post.show-detail .back {
-  display: block !important;
+.post-detail.show-detail .back {
+  display: inline-block !important;
   font-size: 1.5rem;
+  text-decoration: none;
 }
 
-.posts .post-detail.post.show-detail .back .back-first {
+.post-detail.show-detail .back:link, .post-detail.show-detail .back:hover, .post-detail.show-detail .back:visited, .post-detail.show-detail .back:active {
+  color: #797979;
+}
+
+.post-detail.show-detail .back .back-first {
   color: #b68ac7;
   font-size: 1.8rem;
 }
 
-.posts .post-detail.post.show-detail h2::before {
+.post-detail.show-detail .post-data {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-detail.show-detail .post-data .update {
+  font-size: 0.8rem;
+}
+
+.post-detail.show-detail .post-data .category {
+  color: #8f81d8;
+  font-weight: bold;
+}
+
+.post-detail.show-detail h2 {
+  font-size: 2rem;
+  color: #b68ac7;
+  font-weight: normal;
+}
+
+@media screen and (max-width: 768px) {
+  .post-detail.show-detail h2 {
+    font-size: 1.8rem;
+  }
+}
+
+.post-detail.show-detail h2::before {
   content: '';
   display: inline-block !important;
   width: 2.2rem;
@@ -198,6 +293,40 @@ header .category-area .category {
   background-size: contain;
   vertical-align: middle;
   margin-right: 4px;
+}
+
+.post-detail.show-detail .tags {
+  display: flex;
+  padding: 0 !important;
+  color: #797979 !important;
+}
+
+.post-detail.show-detail .tags .taglink {
+  margin-right: 4px;
+}
+
+.post-detail.show-detail .tags .taglink::before {
+  content: "\0023";
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #aa6dc3;
+}
+
+.post-detail.show-detail .tags .taglink a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.post-detail.show-detail .tags .taglink a a:link,
+.post-detail.show-detail .tags .taglink a a:hover,
+.post-detail.show-detail .tags .taglink a a:visited,
+.post-detail.show-detail .tags .taglink a a:active {
+  color: #797979 !important;
+}
+
+.post-detail.show-detail .contents {
+  width: 100%;
+  margin: 1rem 0;
 }
 
 .hide-overray {
