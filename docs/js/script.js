@@ -95,44 +95,7 @@ window.addEventListener('DOMContentLoaded',function () {
 
     if (hash.indexOf("data") > 0 ) {
 
-      var index = hash.replace('#data_','');//ハッシュから数字部分を取得
 
-      // append_detailのプロパティ分、値の追加処理を行う
-      for (var node in append_detail) {
-
-        // カテゴリー出力の処理
-        if (node == "category") {
-
-          for (var cat in data[index][node]) {
-            append_detail[node].setAttribute('href', '#cat_' + cat);
-            append_detail[node].appendChild(document.createTextNode(data[index].category[cat]));
-          }
-          continue;
-
-        // タグ出力の処理
-        }else if (node == "tags") {
-
-          for (var tag_i in data[index].tag) {
-            var taglink = document.createElement('li'),
-            taglink_a = document.createElement('a');
-
-            taglink.setAttribute('class','taglink');
-            taglink_a.setAttribute('href','#tag_' + tag_i);
-
-            taglink_a.appendChild(document.createTextNode(data[index]["tag"][tag_i]));
-            taglink.appendChild(taglink_a);
-            detail_fragment.appendChild(taglink);
-          }
-          append_detail[node].appendChild(detail_fragment);
-          continue;
-
-        }
-
-        // append_detailの要素に値を出力
-        append_detail[node].appendChild(document.createTextNode(data[index][node]));
-      }
-      // フェードインアニメーションの実行
-      detail_fadein();
 
     // カテゴリを選択した場合の処理
     }else if(hash.indexOf('cat') > 0) {
@@ -211,67 +174,7 @@ window.addEventListener('DOMContentLoaded',function () {
 // DOMの生成
 function create_node(filter_data) {
 
-  var fragment = document.createDocumentFragment(),//DOM追加時のフラグメント
-  posts = document.getElementById('js-posts');//記事を追加するN要素
 
-  for (var i = 0; i < filter_data.length; i++) {
-    // 要素の生成
-    var post = document.createElement('article'),
-    a = document.createElement('a'),
-    post_data = document.createElement('div'),
-    h2 = document.createElement('h2'),
-    create_data = document.createElement('div'),
-    category = document.createElement('div'),
-    category_a = document.createElement('a');
-    tags = document.createElement('ul');
-
-    // 属性の追加
-    post.setAttribute('id','post' + i);
-    post.setAttribute('class','post');
-    post_data.setAttribute('class','post-data');
-    create_data.setAttribute('class','create-data');
-    category.setAttribute('class','category');
-    tags.setAttribute('class','tags');
-
-    // 日付・タイトルのデータを出力
-    create_data.appendChild(document.createTextNode(filter_data[i].create_date));
-    h2.appendChild(document.createTextNode(filter_data[i].title));
-
-    // カテゴリの生成
-    for (var cat in filter_data[i].category) {
-      category_a.setAttribute('href','#cat_' + cat);
-      category_a.appendChild(document.createTextNode(filter_data[i].category[cat]));
-      category.appendChild(category_a);
-    }
-
-    // タグリストの生成
-    for (var tag_i in filter_data[i].tag) {
-      var taglink = document.createElement('li'),
-      taglink_a = document.createElement('a');
-
-      taglink.setAttribute('class','taglink');
-      taglink_a.setAttribute('href','#tag_' + tag_i);
-
-      taglink_a.appendChild(document.createTextNode(filter_data[i]["tag"][tag_i]));
-      taglink.appendChild(taglink_a);
-      tags.appendChild(taglink);
-    }
-
-    // DOMの階層構造を生成
-    post_data.appendChild(create_data);
-    post_data.appendChild(category);
-
-    a.appendChild(post_data);
-    a.appendChild(h2);
-    a.appendChild(tags);
-    post.appendChild(a);
-    posts.appendChild(post);
-    fragment.appendChild(post);
-
-  }
-
-  // DOMの出力
-  posts.appendChild(fragment);
 
 }
 
