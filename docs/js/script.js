@@ -115,10 +115,10 @@ window.addEventListener('DOMContentLoaded',function () {
           for (var tag_i in data[index].tag) {
             var taglink = document.createElement('li'),
             taglink_a = document.createElement('a');
-    
+
             taglink.setAttribute('class','taglink');
             taglink_a.setAttribute('href','#tag_' + tag_i);
-    
+
             taglink_a.appendChild(document.createTextNode(data[index]["tag"][tag_i]));
             taglink.appendChild(taglink_a);
             detail_fragment.appendChild(taglink);
@@ -127,12 +127,10 @@ window.addEventListener('DOMContentLoaded',function () {
           continue;
 
         }
-        
+
         // append_detailの要素に値を出力
         append_detail[node].appendChild(document.createTextNode(data[index][node]));
-        
       }
-      
       // フェードインアニメーションの実行
       detail_fadein();
 
@@ -253,7 +251,7 @@ function create_node(filter_data) {
 
       taglink.setAttribute('class','taglink');
       taglink_a.setAttribute('href','#tag_' + tag_i);
-      
+
       taglink_a.appendChild(document.createTextNode(filter_data[i]["tag"][tag_i]));
       taglink.appendChild(taglink_a);
       tags.appendChild(taglink);
@@ -286,7 +284,7 @@ function delete_node(ele){
   }
 }
 
-// 記事にhush変更のクリックイベントを登録する
+// 記事にhash変更のクリックイベントを登録する
 function article_set_click() {
   var post_ele = document.querySelectorAll('.post'),//記事一覧の要素を取得
   post_id;
