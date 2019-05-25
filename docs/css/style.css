@@ -246,7 +246,7 @@ header .category-area .category a:link, header .category-area .category a:hover,
 .post-detail {
   position: absolute;
   width: 90%;
-  max-width: 1280px;
+  max-width: calc(1280px * 0.92);
   height: auto;
   min-height: 50vh;
   margin: 0 0 2rem;
