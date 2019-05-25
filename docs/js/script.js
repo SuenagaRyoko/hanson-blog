@@ -76,27 +76,21 @@ var data = [
 
 // DOM(htmlの要素)が読み込まれたら処理を実行
 window.addEventListener('DOMContentLoaded',function () {
-
-  // urlにハッシュが含まれていない場合#topをつける
-  if (!location.hash) {
-    location.href = '#top';
-  }
+  var hash = location.hash,//ハッシュ
+  posts = document.querySelector("#js-posts");
+  post_filter(posts,hash);
 
   // ハッシュが変更されたら処理を実行
   window.addEventListener('hashchange',function () {
-    var hash = location.hash,//ハッシュ
-    posts = document.querySelector("#js-posts"),
-    detail_fragment = document.createDocumentFragment(),//DOM追加時のフラグメント
-    append_detail = {//値追加用のDOMを取得
-      create_date: document.querySelector('#js-create-data'),
-      category: document.querySelector('#js-category'),
-      id: 1,
-      title: document.querySelector('#js-title'),
-      tags: document.querySelector('#js-tags'),
-      contents: document.querySelector('#js-contents')
-    };
+    var change_hash = location.hash;
+    post_filter(posts,change_hash);
 
-    
+  });
+
+});
+
+function post_filter(posts,hash){
+  if (hash) {
     // カテゴリを選択した場合の処理
     if(hash.indexOf('cat') > 0) {
 
@@ -111,11 +105,6 @@ window.addEventListener('DOMContentLoaded',function () {
 
       // 記事詳細をフェードアウト
       detail_fadeout();
-
-      // 記事詳細の表示データを削除
-      for (var node in append_detail) {
-        delete_node(append_detail[node]);
-      }
 
     // タグを選択した場合の処理
     }else if(hash.indexOf('tag') > 0) {
@@ -132,11 +121,6 @@ window.addEventListener('DOMContentLoaded',function () {
       // 記事詳細をフェードアウト
       detail_fadeout();
 
-      // 記事詳細の表示データを削除
-      for (var node in append_detail) {
-        delete_node(append_detail[node]);
-      }
-
     // サイト名のBLOGのリンクをクリックした場合の処理
     }else if(hash == '#all'){
 
@@ -148,28 +132,9 @@ window.addEventListener('DOMContentLoaded',function () {
       // 記事詳細をフェードアウト
       detail_fadeout();
 
-      // 記事詳細の表示データを削除
-      for (var node in append_detail) {
-        delete_node(append_detail[node]);
-      }
-
-    // 記事詳細画面から一覧画面に戻る場合の処理
-    }else if(hash == '#top') {
-
-      // 記事詳細をフェードアウト
-      detail_fadeout();
-
-      // 記事詳細の表示データを削除
-      for (var node in append_detail) {
-        delete_node(append_detail[node]);
-      }
-
     }
-
-
-  });
-
-});
+  }
+}
 
 // DOMの生成
 function create_node(filter_data) {
@@ -254,6 +219,7 @@ function article_set_click() {
   // 記事一覧の要素にハッシュ変更のイベントを登録
   for (var post_i = 0; post_i < post_ele.length; post_i++) {
     post_ele[post_i].addEventListener('click',function (e) {
+      e.preventDefault();
       // ハッシュを変更して、ページトップまでスクロール
       set_hash(e);
       scroll_top();
@@ -263,20 +229,16 @@ function article_set_click() {
 
 // 詳細ページのフェードインアニメーション
 function detail_fadein() {
-  var hide_posts = document.getElementById('js-posts'),
-  show_post = document.getElementById('js-post-detail');
+  var hide_posts = document.getElementById('js-posts');
 
   hide_posts.classList.add('fadeout');
-  show_post.classList.add('show-detail');
 }
 
 // 詳細ページのフェードアウトアニメーション
 function detail_fadeout() {
-  var hide_posts = document.getElementById('js-posts'),
-  show_post = document.getElementById('js-post-detail');
+  var hide_posts = document.getElementById('js-posts');
 
   hide_posts.classList.remove('fadeout');
-  show_post.classList.remove('show-detail');
 }
 
 // カテゴリやタグごとにフィルタリング

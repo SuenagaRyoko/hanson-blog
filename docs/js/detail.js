@@ -1,6 +1,7 @@
 // 記事表示用のデータ
 var data = [
   {
+    id: 0,
     title: '記事タイトル1',
     create_date: '2019-05-09',
     category: {'category0':'カテゴリー1'},
@@ -12,6 +13,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
+    id: 1,
     title: '記事タイトル2',
     create_date: '2019-05-09',
     category: {'category1':'カテゴリー2'},
@@ -23,6 +25,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
+    id: 2,
     title: '記事タイトル3',
     create_date: '2019-05-09',
     category: {'category2':'カテゴリー3'},
@@ -34,6 +37,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\n'
   },
   {
+    id: 3,
     title: '記事タイトル4',
     create_date: '2019-05-09',
     category: {'category0':'カテゴリー1'},
@@ -45,6 +49,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
+    id: 4,
     title: '記事タイトル5',
     create_date: '2019-05-09',
     category: {'category1':'カテゴリー2'},
@@ -56,6 +61,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
+    id: 5,
     title: '記事タイトル6',
     create_date: '2019-05-09',
     category: {'category2':'カテゴリー3'},
@@ -125,8 +131,6 @@ window.addEventListener('DOMContentLoaded',function () {
       // append_detailの要素に値を出力
       append_detail[node].appendChild(document.createTextNode(data[index][node]));
     }
-    // フェードインアニメーションの実行
-    detail_fadein();
 
   // サイト名のBLOGのリンクをクリックした場合の処理
   }else if(hash == '#all'){
@@ -248,18 +252,6 @@ function article_set_click() {
       scroll_top();
     });
   }
-}
-
-// 詳細ページのフェードインアニメーション
-function detail_fadein() {
-  var show_post = document.getElementById('js-post-detail');
-  show_post.classList.add('show-detail');
-}
-
-// 詳細ページのフェードアウトアニメーション
-function detail_fadeout() {
-  var show_post = document.getElementById('js-post-detail');
-  show_post.classList.remove('show-detail');
 }
 
 // カテゴリやタグごとにフィルタリング
