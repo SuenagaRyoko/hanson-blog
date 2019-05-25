@@ -1,6 +1,7 @@
 // 記事表示用のデータ
 var data = [
   {
+    id: 0,
     title: '記事タイトル1',
     create_date: '2019-05-09',
     category: {'category0':'カテゴリー1'},
@@ -12,6 +13,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
+    id: 1,
     title: '記事タイトル2',
     create_date: '2019-05-09',
     category: {'category1':'カテゴリー2'},
@@ -23,6 +25,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
+    id: 2,
     title: '記事タイトル3',
     create_date: '2019-05-09',
     category: {'category2':'カテゴリー3'},
@@ -34,6 +37,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\nテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト\n'
   },
   {
+    id: 3,
     title: '記事タイトル4',
     create_date: '2019-05-09',
     category: {'category0':'カテゴリー1'},
@@ -45,6 +49,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
+    id: 4,
     title: '記事タイトル5',
     create_date: '2019-05-09',
     category: {'category1':'カテゴリー2'},
@@ -56,6 +61,7 @@ var data = [
     contents: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
   },
   {
+    id: 5,
     title: '記事タイトル6',
     create_date: '2019-05-09',
     category: {'category2':'カテゴリー3'},
@@ -226,7 +232,7 @@ function create_node(filter_data) {
     tags = document.createElement('ul');
 
     // 属性の追加
-    post.setAttribute('id','post' + i);
+    post.setAttribute('id','post' + filter_data[i].id);
     post.setAttribute('class','post');
     post_data.setAttribute('class','post-data');
     create_data.setAttribute('class','create-data');
