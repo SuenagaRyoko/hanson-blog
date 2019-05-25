@@ -224,11 +224,6 @@ header{
   padding: 1rem 3%;
   background: #fff;
   border-radius: 10px;
-  opacity: 0;
-  z-index: -100;
-}
-
-.post-detail{
   .back{
     display: inline-block !important;
     font-size: 1.5rem;
@@ -310,20 +305,6 @@ header{
     margin: 1rem 0;
   }
 }
-  
-.hide-overray{
-  display: none;
-}
-.show-overray{
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100vw;
-  height: 100vh;
-  background-color: transparent;
-  z-index: 50;
-}
 
 .fadeout {
   opacity: 0 !important;
@@ -352,10 +333,4 @@ header{
   100% {
     opacity: 0;
   }
-}
-
-.show-detail{
-  opacity: 1 !important;
-  z-index: 100 !important;
-  transition: opacity 300ms ease 0ms;
 }
